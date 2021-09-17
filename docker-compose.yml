@@ -1,0 +1,42 @@
+version: '3'
+
+networks:
+  findora-bridge:
+
+services:
+  findora-bridge-relayer0:
+    image: chainsafe/chainbridge:v1.1.5
+    container_name: relayer0
+    restart: always
+    environment:
+      - KEYSTORE_PASSWORD=passw0rd
+    command: --config /config/config.json --verbosity trace --latest
+    volumes:
+      - ./config/config0.json:/config/config.json
+      - ./keys/0x2bae5160a67ffe0d2dd9114c521dd51689fdb549.key:/keys/0x2bae5160a67ffe0d2dd9114c521dd51689fdb549.key
+    networks:
+      - findora-bridge
+  findora-bridge-relayer1:
+    image: chainsafe/chainbridge:v1.1.5
+    container_name: relayer1
+    restart: always
+    environment:
+      - KEYSTORE_PASSWORD=passw0rd
+    command: --config /config/config.json --verbosity trace --latest
+    volumes:
+      - ./config/config1.json:/config/config.json
+      - ./keys/0x994354275a3512fc3c54543e1b400ea9da1d3a0f.key:/keys/0x994354275a3512fc3c54543e1b400ea9da1d3a0f.key
+    networks:
+      - findora-bridge
+  findora-bridge-relayer2:
+    image: chainsafe/chainbridge:v1.1.5
+    container_name: relayer2
+    restart: always
+    environment:
+      - KEYSTORE_PASSWORD=passw0rd
+    command: --config /config/config.json --verbosity trace --latest
+    volumes:
+      - ./config/config2.json:/config/config.json
+      - ./keys/0xdfae3230656b0afbbdc5f4f16f49eef9398fb51f.key:/keys/0xdfae3230656b0afbbdc5f4f16f49eef9398fb51f.key
+    networks:
+      - findora-bridge
