@@ -5,7 +5,7 @@
 			"type": "ethereum",
 			"id": "0",
 			"endpoint": "wss://goerli-light.eth.linkpool.io/ws",
-			"from": "0x994354275a3512fc3c54543e1b400ea9da1d3a0f",
+			"from": "0x994354275A3512fc3C54543E1b400ea9dA1d3A0f",
 			"opts": {
 				"bridge": "0x4D20F35DfF614394514742f91D81B5524Ad18B9b",
 				"erc20Handler": "0xDe1cd474Bd884B818fb2D4fad7e7E6c4114bcCbF",
@@ -21,7 +21,7 @@
 			"type": "ethereum",
 			"id": "1",
 			"endpoint": "https://dev-evm.dev.findora.org:8545",
-			"from": "0x994354275a3512fc3c54543e1b400ea9da1d3a0f",
+			"from": "0x994354275A3512fc3C54543E1b400ea9dA1d3A0f",
 			"opts": {
 				"bridge": "0x26925046a09d9AEfe6903eae0aD090be06186Bd9",
 				"erc20Handler": "0xE75Fb7714B5098E20A2D224693A1c210ad0c1A42",
