@@ -201,7 +201,7 @@ cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 1000000000000 erc2
 
 ### Usage
 ```
-$ cfgBuilder config.json config
+cfgBuilder config.json config
 ```
 
 ## Set up keys
@@ -220,7 +220,7 @@ docker-compose up -d
 Approve the handler to spend tokens on our behalf (to transfer them to the token safe).
 ```
 cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 10000000000 erc20 approve \
-    --amount 100000000000000000000 \
+    --amount 100 \
     --erc20Address $SRC_TOKEN \
     --recipient $SRC_HANDLER
 ```
@@ -229,7 +229,7 @@ Note: Most ERC20 contracts use 18 decimal places. The amount specified will be e
 ### Execute a deposit.
 ```
 cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 10000000000 erc20 deposit \
-    --amount 100000000000000000000 \
+    --amount 100 \
     --dest 1 \
     --bridge $SRC_BRIDGE \
     --recipient 0x91388a75f30065f6f1d679541c6adc2c3ade08a8 \
