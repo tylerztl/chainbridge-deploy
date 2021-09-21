@@ -1,35 +1,35 @@
 {
 	"Chains": [
 		{
-			"name": "Goerli",
+			"name": "Findora",
 			"type": "ethereum",
 			"id": "0",
+			"endpoint": "https://dev-evm.dev.findora.org:8545",
+			"from": "0x994354275A3512fc3C54543E1b400ea9dA1d3A0f",
+			"opts": {
+				"bridge": "0x26925046a09d9AEfe6903eae0aD090be06186Bd9",
+				"erc20Handler": "0xE75Fb7714B5098E20A2D224693A1c210ad0c1A42",
+				"genericHandler": "0xE75Fb7714B5098E20A2D224693A1c210ad0c1A42",
+				"gasLimit": "1000000",
+				"maxGasPrice": "100000000000",
+				"startBlock": "0",
+				"http": "true"
+			}
+		},
+		{
+			"name": "Goerli",
+			"type": "ethereum",
+			"id": "1",
 			"endpoint": "wss://goerli-light.eth.linkpool.io/ws",
 			"from": "0x994354275A3512fc3C54543E1b400ea9dA1d3A0f",
 			"opts": {
-				"bridge": "0x3c7Edb3f400fb6e949AA27c829c9A688b5EdEf19",
-				"erc20Handler": "0xaA733dC56eb0772e4772cEF827F4929D2D1Bb126",
-				"genericHandler": "0xaA733dC56eb0772e4772cEF827F4929D2D1Bb126",
+				"bridge": "0x4048588Fd453e3D62F27b8De9feC38a90574dAB3",
+				"erc20Handler": "0xa9838e32eB5e6146Bc3A4B99C4b512E080613f61",
+				"genericHandler": "0xa9838e32eB5e6146Bc3A4B99C4b512E080613f61",
 				"gasLimit": "1000000",
 				"maxGasPrice": "10000000000",
 				"startBlock": "5512233",
 				"http": "false"
-			}
-		},
-		{
-			"name": "Findora",
-			"type": "ethereum",
-			"id": "1",
-			"endpoint": "https://dev-evm.dev.findora.org:8545",
-			"from": "0x994354275A3512fc3C54543E1b400ea9dA1d3A0f",
-			"opts": {
-				"bridge": "0x58649Aae0B5086d60322482b5760E3c055A3D953",
-				"erc20Handler": "0xde70D43041e9f41cFD5599DB8BFC41b440cbb506",
-				"genericHandler": "0xde70D43041e9f41cFD5599DB8BFC41b440cbb506",
-				"gasLimit": "1000000",
-				"maxGasPrice": "1000000000000",
-				"startBlock": "0",
-				"http": "true"
 			}
 		}
 	]

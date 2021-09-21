@@ -259,7 +259,7 @@ docker-compose up -d
 ### Approve token
 Approve the handler to spend tokens on our behalf (to transfer them to the token safe).
 ```
-cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 10000000000 erc20 approve \
+cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 100000000000 erc20 approve \
     --amount 100 \
     --erc20Address $SRC_TOKEN \
     --recipient $SRC_HANDLER
@@ -268,7 +268,7 @@ Note: Most ERC20 contracts use 18 decimal places. The amount specified will be e
 
 ### Execute a deposit.
 ```
-cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 10000000000 erc20 deposit \
+cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 100000000000 erc20 deposit \
     --amount 100 \
     --dest 1 \
     --bridge $SRC_BRIDGE \
