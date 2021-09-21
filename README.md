@@ -264,6 +264,8 @@ docker-compose up -d
 ### Deposit token
 #### Findora => Ethereum
 Approve the handler to spend tokens on our behalf (to transfer them to the token safe).
+
+*Note: FRA(ERC20) decimals is 0*
 ```
 cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 100000000000 erc20 approve \
     --amount 100 \
@@ -278,13 +280,15 @@ cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 100000000000 erc20
     --amount 100 \
     --dest 1 \
     --bridge $SRC_BRIDGE \
-    --recipient 0x91388a75f30065f6f1d679541c6adc2c3ade08a8 \
+    --recipient 0x5849771139978fe0B3D52303d71D222a347e7CaB \
     --resourceId $RESOURCE_ID
 ```
 The relayer will wait 10 block confirmations before submitting a request which may take a few minutes on the test network. Keep an eye on the target=XXXX output in the chainbridge relayer window. 
 The transfer will occur when this reaches the block height of the deposit transaction.
 
 #### Ethereum => Findora
+*Note: wFRA(FRC20) decimals is 18*
+
 Approve the handler on the destination chain to move tokens on our behalf (to burn them).
 ```
 cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 erc20 approve \

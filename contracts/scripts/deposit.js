@@ -8,7 +8,7 @@ const findoraNetwork = "https://dev-evm.dev.findora.org:8545/";
 // findora deployer
 const mnemonic = "weather confirm sphere snack grab vessel void aspect day art jewel bamboo";
 const caller = '0x91388a75f30065f6F1D679541C6aDc2c3ade08A8';
-const contractAddress = '0xE98C358718d9D7916371a824C04d5eC5db5aBf6e';
+const contractAddress = '0x6E381B17fA5748a4263E2C404E98974200728DE2';
 
 async function main() {
     const provider = new HDWalletProvider(mnemonic, findoraNetwork);
