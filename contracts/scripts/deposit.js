@@ -5,8 +5,9 @@ const wfraABI = require('../build/contracts/wfra.json');
 const findoraNetwork = "https://dev-evm.dev.findora.org:8545/";
 // const findoraNetwork = "http://127.0.0.1:8545/";
 
-const mnemonic = "citizen hint animal brain label grab hurt prison myth stem load wait";
-const caller = '0xA5225cBEE5052100Ec2D2D94aA6d258558073757';
+// findora deployer
+const mnemonic = "weather confirm sphere snack grab vessel void aspect day art jewel bamboo";
+const caller = '0x91388a75f30065f6F1D679541C6aDc2c3ade08A8';
 const contractAddress = '0xE98C358718d9D7916371a824C04d5eC5db5aBf6e';
 
 async function main() {
@@ -21,9 +22,9 @@ async function main() {
 
     console.log("query WFRA balance: ", await erc20Instance.methods.balanceOf(caller).call());
 
-    console.log("deposit 100 FRA result: ", await erc20Instance.methods.deposit().send({
+    console.log("deposit 1000 FRA result: ", await erc20Instance.methods.deposit().send({
         from: caller,
-        value: 100 * 1000000000000000000
+        value: "1000000000000000000000"
     }));
 
     console.log("query WFRA balance: ", await erc20Instance.methods.balanceOf(caller).call());

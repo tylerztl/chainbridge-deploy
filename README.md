@@ -39,6 +39,11 @@ output:
 ...
  > contract address:    0x6E381B17fA5748a4263E2C404E98974200728DE2
 ```
+#### Deposit FRA(evm token) to swap wFRA(FRC20)
+```
+cd contracts
+node scripts/deposit.js
+```
 
 ### Set chainbridge vars
 To avoid duplication in the subsequent commands set the following env vars in your shell:
@@ -111,7 +116,7 @@ Centrifuge Asset:   Not Deployed
 WETC:               Not Deployed
 ================================================================
 ```
-Take note of the output of the above command and assign the following variables.
+Take note of the output of the above command and assign the following variables to `chainbridge-vars`.
 ```
 SRC_BRIDGE="<resulting bridge contract address>"
 SRC_HANDLER="<resulting erc20 handler contract address>"
@@ -183,14 +188,35 @@ Centrifuge Asset:   Not Deployed
 WETC:               Not Deployed
 ================================================================
 ```
-Again, assign the following env variables.
+Again, assign the following env variables to `chainbridge-vars`.
 ```
 DST_BRIDGE="<resulting bridge contract address>"
 DST_HANDLER="<resulting erc20 handler contract address>"
 DST_TOKEN="<resulting erc20 token address>"
 ```
 
-4. Configure contracts on Destination
+Final chainbridge-vars
+```
+SRC_GATEWAY=https://dev-evm.dev.findora.org:8545/
+DST_GATEWAY=https://goerli-light.eth.linkpool.io/
+
+SRC_ADDR="0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549","0x994354275A3512fc3C54543E1b400ea9dA1d3A0f","0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f"
+SRC_PK="59a6e32ed4240917b1ebe7de6fd5c3b672376badca34828b642837e9395980e1"
+DST_ADDR="0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549","0x994354275A3512fc3C54543E1b400ea9dA1d3A0f","0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f"
+DST_PK="1d3cb5dada1ea8d4453e9e10749a6a608ee0d89a4ad9f9e0241f40346e0f0957"
+
+SRC_TOKEN="0x6E381B17fA5748a4263E2C404E98974200728DE2"
+RESOURCE_ID="0x000000000000000000000000000000c76ebe4a02bbc34786d860b355f5a5ce00"
+
+SRC_BRIDGE="0x26925046a09d9AEfe6903eae0aD090be06186Bd9"
+SRC_HANDLER="0xE75Fb7714B5098E20A2D224693A1c210ad0c1A42"
+
+DST_BRIDGE="0x4048588Fd453e3D62F27b8De9feC38a90574dAB3"
+DST_HANDLER="0xa9838e32eB5e6146Bc3A4B99C4b512E080613f61"
+DST_TOKEN="0x6334B8cb92B402206778732fE425b78e88B42b38"
+```
+
+4. Configure contracts on Destination (Görli)
 The following registers the new token (FRA) as a resource on the bridge similar to the above.
 ```
 cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 bridge register-resource \
@@ -211,27 +237,6 @@ The following gives permission for the handler to mint new wWEENUS tokens.
 cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 erc20 add-minter \
     --minter $DST_HANDLER \
     --erc20Address $DST_TOKEN
-```
-
-chainbridge-vars
-```
-SRC_GATEWAY=https://dev-evm.dev.findora.org:8545/
-DST_GATEWAY=https://goerli-light.eth.linkpool.io/
-
-SRC_ADDR="0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549","0x994354275A3512fc3C54543E1b400ea9dA1d3A0f","0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f"
-SRC_PK="59a6e32ed4240917b1ebe7de6fd5c3b672376badca34828b642837e9395980e1"
-DST_ADDR="0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549","0x994354275A3512fc3C54543E1b400ea9dA1d3A0f","0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f"
-DST_PK="1d3cb5dada1ea8d4453e9e10749a6a608ee0d89a4ad9f9e0241f40346e0f0957"
-
-SRC_TOKEN="0x6E381B17fA5748a4263E2C404E98974200728DE2"
-RESOURCE_ID="0x000000000000000000000000000000c76ebe4a02bbc34786d860b355f5a5ce00"
-
-SRC_BRIDGE="0x26925046a09d9AEfe6903eae0aD090be06186Bd9"
-SRC_HANDLER="0xE75Fb7714B5098E20A2D224693A1c210ad0c1A42"
-
-DST_BRIDGE="0x4048588Fd453e3D62F27b8De9feC38a90574dAB3"
-DST_HANDLER="0xa9838e32eB5e6146Bc3A4B99C4b512E080613f61"
-DST_TOKEN="0x6334B8cb92B402206778732fE425b78e88B42b38"
 ```
 
 ## Build configs
@@ -256,7 +261,8 @@ chainbridge accounts import --privateKey $RELAYER_PK
 docker-compose up -d 
 ```
 
-### Approve token
+### Deposit token
+#### Findora => Ethereum
 Approve the handler to spend tokens on our behalf (to transfer them to the token safe).
 ```
 cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 100000000000 erc20 approve \
@@ -266,7 +272,7 @@ cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 100000000000 erc20
 ```
 Note: Most ERC20 contracts use 18 decimal places. The amount specified will be encoded with the necessary decimal places. This can be configured with --decimals on the erc20 command.
 
-### Execute a deposit.
+##### Execute a deposit.
 ```
 cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 100000000000 erc20 deposit \
     --amount 100 \
@@ -277,3 +283,21 @@ cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 100000000000 erc20
 ```
 The relayer will wait 10 block confirmations before submitting a request which may take a few minutes on the test network. Keep an eye on the target=XXXX output in the chainbridge relayer window. 
 The transfer will occur when this reaches the block height of the deposit transaction.
+
+#### Ethereum => Findora
+Approve the handler on the destination chain to move tokens on our behalf (to burn them).
+```
+cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 erc20 approve \
+    --amount 1000000000000000000 \
+    --erc20Address $DST_TOKEN \
+    --recipient $DST_HANDLER
+```
+Transfer the wrapped tokens back to the bridge. This should result in the locked tokens being freed on the source chain and returned to your account.
+```
+cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 erc20 deposit \
+    --amount 1000000000000000000 \
+    --dest 0 \
+    --bridge $DST_BRIDGE \
+    --recipient $SRC_ADDR \
+    --resourceId $RESOURCE_ID
+```
