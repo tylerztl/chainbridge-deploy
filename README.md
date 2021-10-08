@@ -31,7 +31,7 @@ The tools provided by ChainBridge are an alternative, see the [keystore](https:/
 To avoid duplication in the subsequent commands set the following env vars in your shell:
 ```
 SRC_GATEWAY=https://dev-evm.dev.findora.org:8545/
-DST_GATEWAY=https://goerli-light.eth.linkpool.io/
+DST_GATEWAY=https://data-seed-prebsc-1-s1.binance.org:8545/
 
 SRC_ADDR="<relayers public key on Findora>"
 SRC_PK="<deployer private key on Findora>"
@@ -56,7 +56,6 @@ cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 100000000000 deplo
     --bridge --erc20Handler \
     --relayers $SRC_ADDR \
     --relayerThreshold 3\
-    --fee 1000000000000000000\
     --chainId 0
 ```
 output:
@@ -70,21 +69,21 @@ Url:        https://dev-evm.dev.findora.org:8545/
 Deployer:   0x91388a75f30065f6F1D679541C6aDc2c3ade08A8
 Gas Limit:   8000000
 Gas Price:   100000000000
-Deploy Cost: 0.5949382
+Deploy Cost: 0.593005
 
 Options
 =======
 Chain Id:    0
 Threshold:   3
 Relayers:    0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549,0x994354275A3512fc3C54543E1b400ea9dA1d3A0f,0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f
-Bridge Fee:  1000000000000000000
+Bridge Fee:  0
 Expiry:      100
 
 Contract Addresses
 ================================================================
-Bridge:             0xB5A708b263e5F747c170C697Ad6Df64C2Bb513E6
+Bridge:             0x8B7B3654e0f30b754AaB7F94518367a4661b9e58
 ----------------------------------------------------------------
-Erc20 Handler:      0xCe72b033B0930F8c663125cD80a9DBF4aFb06d3B
+Erc20 Handler:      0x956568C0f6B97599197b842A4c8763aa6c66780A
 ----------------------------------------------------------------
 Erc721 Handler:     Not Deployed
 ----------------------------------------------------------------
@@ -116,8 +115,8 @@ cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 100000000000 bridg
 ```
 output:
 ```
-[bridge/register-resource] Registering contract 0x0000000000000000000000000000000000000009 with resource ID 0x000000000000000000000000000000c76ebe4a02bbc34786d860b355f5a5ce00 on handler 0xCe72b033B0930F8c663125cD80a9DBF4aFb06d3B
-Waiting for tx: 0xa73aef9a7d0a0b32c11361949b44fda5570c83294cdfacbba020f7ec075717cc...
+[bridge/register-resource] Registering contract 0x0000000000000000000000000000000000000009 with resource ID 0x000000000000000000000000000000c76ebe4a02bbc34786d860b355f5a5ce00 on handler 0x956568C0f6B97599197b842A4c8763aa6c66780A
+Waiting for tx: 0x00e0c34858dd7055f6386a21a1204ed52f7eb200406f79abcf8f0e7b9de1414d...
 ```
 
 3. Deploy contracts on Destination (BSC)
@@ -125,6 +124,8 @@ Waiting for tx: 0xa73aef9a7d0a0b32c11361949b44fda5570c83294cdfacbba020f7ec075717
 The following command deploys the bridge contract, handler and a new ERC20 contract (FRA) on the destination chain.
 ```
 cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 deploy\
+    --erc20Name Findora \
+    --erc20Symbol FRA \
     --bridge --erc20 --erc20Handler \
     --relayers $DST_ADDR \
     --relayerThreshold 3 \
@@ -142,7 +143,7 @@ Url:        https://data-seed-prebsc-1-s1.binance.org:8545/
 Deployer:   0x5849771139978fe0B3D52303d71D222a347e7CaB
 Gas Limit:   8000000
 Gas Price:   10000000000
-Deploy Cost: 0.07606548
+Deploy Cost: 0.0764572
 
 Options
 =======
@@ -154,15 +155,15 @@ Expiry:      100
 
 Contract Addresses
 ================================================================
-Bridge:             0xBF8941e772A96fcaF9B5F728A9593d14A315138c
+Bridge:             0xF96C6126B0e281c913F702e22A99B7192D253D9A
 ----------------------------------------------------------------
-Erc20 Handler:      0xb51d02d5689cE5159Ee48C973755759caB2C8782
+Erc20 Handler:      0xed4dF3aBe6B013080cfd15d1B31bD231D61f5A6D
 ----------------------------------------------------------------
 Erc721 Handler:     Not Deployed
 ----------------------------------------------------------------
 Generic Handler:    Not Deployed
 ----------------------------------------------------------------
-Erc20:              0x4D20F35DfF614394514742f91D81B5524Ad18B9b
+Erc20:              0x85d77368fA867d6c70b2Ee0F526c9364F85ae312
 ----------------------------------------------------------------
 Erc721:             Not Deployed
 ----------------------------------------------------------------
@@ -191,12 +192,12 @@ DST_PK="1d3cb5dada1ea8d4453e9e10749a6a608ee0d89a4ad9f9e0241f40346e0f0957"
 SRC_TOKEN="0x0000000000000000000000000000000000000009"
 RESOURCE_ID="0x000000000000000000000000000000c76ebe4a02bbc34786d860b355f5a5ce00"
 
-SRC_BRIDGE="0xB5A708b263e5F747c170C697Ad6Df64C2Bb513E6"
-SRC_HANDLER="0xCe72b033B0930F8c663125cD80a9DBF4aFb06d3B"
+SRC_BRIDGE="0x8B7B3654e0f30b754AaB7F94518367a4661b9e58"
+SRC_HANDLER="0x956568C0f6B97599197b842A4c8763aa6c66780A"
 
-DST_BRIDGE="0xBF8941e772A96fcaF9B5F728A9593d14A315138c"
-DST_HANDLER="0xb51d02d5689cE5159Ee48C973755759caB2C8782"
-DST_TOKEN="0x4D20F35DfF614394514742f91D81B5524Ad18B9b"
+DST_BRIDGE="0xF96C6126B0e281c913F702e22A99B7192D253D9A"
+DST_HANDLER="0xed4dF3aBe6B013080cfd15d1B31bD231D61f5A6D"
+DST_TOKEN="0x85d77368fA867d6c70b2Ee0F526c9364F85ae312"
 ```
 
 4. Configure contracts on Destination (BSC)
@@ -248,7 +249,6 @@ docker-compose up -d
 #### Findora => BSC
 Approve the handler to spend tokens on our behalf (to transfer them to the token safe).
 
-*Note: FRA(BEP-20) decimals is 0*
 ```
 cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 100000000000 erc20 approve \
     --amount 100 \
@@ -269,22 +269,21 @@ cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 100000000000 erc20
 The relayer will wait 10 block confirmations before submitting a request which may take a few minutes on the test network. Keep an eye on the target=XXXX output in the chainbridge relayer window. 
 The transfer will occur when this reaches the block height of the deposit transaction.
 
-#### Ethereum => Findora
-*Note: wFRA(FRC20) decimals is 18*
+#### BSC => Findora
 
 Approve the handler on the destination chain to move tokens on our behalf (to burn them).
 ```
 cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 erc20 approve \
-    --amount 1000000000000000000 \
+    --amount 10 \
     --erc20Address $DST_TOKEN \
     --recipient $DST_HANDLER
 ```
 Transfer the wrapped tokens back to the bridge. This should result in the locked tokens being freed on the source chain and returned to your account.
 ```
 cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 erc20 deposit \
-    --amount 1000000000000000000 \
+    --amount 10 \
     --dest 0 \
     --bridge $DST_BRIDGE \
-    --recipient $SRC_ADDR \
+    --recipient 0x91388a75f30065f6F1D679541C6aDc2c3ade08A8 \
     --resourceId $RESOURCE_ID
 ```
