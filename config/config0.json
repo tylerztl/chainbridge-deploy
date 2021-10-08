@@ -7,9 +7,9 @@
 			"endpoint": "https://dev-evm.dev.findora.org:8545",
 			"from": "0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549",
 			"opts": {
-				"bridge": "0x26925046a09d9AEfe6903eae0aD090be06186Bd9",
-				"erc20Handler": "0xE75Fb7714B5098E20A2D224693A1c210ad0c1A42",
-				"genericHandler": "0xE75Fb7714B5098E20A2D224693A1c210ad0c1A42",
+				"bridge": "0xB5A708b263e5F747c170C697Ad6Df64C2Bb513E6",
+				"erc20Handler": "0xCe72b033B0930F8c663125cD80a9DBF4aFb06d3B",
+				"genericHandler": "0xCe72b033B0930F8c663125cD80a9DBF4aFb06d3B",
 				"gasLimit": "1000000",
 				"maxGasPrice": "100000000000",
 				"startBlock": "0",
@@ -17,19 +17,19 @@
 			}
 		},
 		{
-			"name": "Goerli",
+			"name": "BSC",
 			"type": "ethereum",
 			"id": "1",
-			"endpoint": "wss://goerli-light.eth.linkpool.io/ws",
+			"endpoint": "https://data-seed-prebsc-1-s1.binance.org:8545/",
 			"from": "0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549",
 			"opts": {
-				"bridge": "0x4048588Fd453e3D62F27b8De9feC38a90574dAB3",
-				"erc20Handler": "0xa9838e32eB5e6146Bc3A4B99C4b512E080613f61",
-				"genericHandler": "0xa9838e32eB5e6146Bc3A4B99C4b512E080613f61",
+				"bridge": "0xBF8941e772A96fcaF9B5F728A9593d14A315138c",
+				"erc20Handler": "0xb51d02d5689cE5159Ee48C973755759caB2C8782",
+				"genericHandler": "0xb51d02d5689cE5159Ee48C973755759caB2C8782",
 				"gasLimit": "1000000",
 				"maxGasPrice": "10000000000",
-				"startBlock": "5512233",
-				"http": "false"
+				"startBlock": "0",
+				"http": "true"
 			}
 		}
 	]
