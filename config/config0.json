@@ -4,15 +4,17 @@
 			"name": "Findora",
 			"type": "ethereum",
 			"id": "0",
-			"endpoint": "https://dev-evm.dev.findora.org:8545",
+			"endpoint": "https://prod-forge.prod.findora.org:8545/",
 			"from": "0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549",
 			"opts": {
-				"bridge": "0x8B7B3654e0f30b754AaB7F94518367a4661b9e58",
-				"erc20Handler": "0x956568C0f6B97599197b842A4c8763aa6c66780A",
-				"genericHandler": "0x956568C0f6B97599197b842A4c8763aa6c66780A",
+				"bridge": "0x26925046a09d9AEfe6903eae0aD090be06186Bd9",
+				"erc20Handler": "0xE75Fb7714B5098E20A2D224693A1c210ad0c1A42",
+				"genericHandler": "0xE75Fb7714B5098E20A2D224693A1c210ad0c1A42",
 				"gasLimit": "1000000",
-				"maxGasPrice": "100000000000",
+				"maxGasPrice": "10000000000",
+				"gasMultiplier": "1",
 				"startBlock": "0",
+				"blockConfirmations": "3",
 				"http": "true"
 			}
 		},
@@ -23,12 +25,14 @@
 			"endpoint": "https://data-seed-prebsc-1-s1.binance.org:8545/",
 			"from": "0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549",
 			"opts": {
-				"bridge": "0xF96C6126B0e281c913F702e22A99B7192D253D9A",
-				"erc20Handler": "0xed4dF3aBe6B013080cfd15d1B31bD231D61f5A6D",
-				"genericHandler": "0xed4dF3aBe6B013080cfd15d1B31bD231D61f5A6D",
+				"bridge": "0xacB8C5D7be5B23644eCe55789Eb6aA6bd6C31e64",
+				"erc20Handler": "0x3e1066Ea99f2934e728D85b03BD72d1BbD61D2D4",
+				"genericHandler": "0x3e1066Ea99f2934e728D85b03BD72d1BbD61D2D4",
 				"gasLimit": "1000000",
 				"maxGasPrice": "10000000000",
+				"gasMultiplier": "1",
 				"startBlock": "0",
+				"blockConfirmations": "3",
 				"http": "true"
 			}
 		}
