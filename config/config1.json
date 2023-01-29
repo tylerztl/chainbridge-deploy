@@ -1,10 +1,10 @@
 {
 	"Chains": [
 		{
-			"name": "BNB Testnet",
+			"name": "JAZ Testnet",
 			"type": "ethereum",
 			"id": "1",
-			"endpoint": "https://data-seed-prebsc-1-s1.binance.org:8545",
+			"endpoint": "https://rpc1.jaz.network/",
 			"from": "0x994354275A3512fc3C54543E1b400ea9dA1d3A0f",
 			"opts": {
 				"bridge": "0x55076D7b0977b4623F81d0f97940797424cA83FA",
@@ -13,15 +13,15 @@
 				"gasLimit": "1000000",
 				"maxGasPrice": "10000000000",
 				"gasMultiplier": "1",
-				"startBlock": "26765533",
+				"startBlock": "0",
 				"http": "true"
 			}
 		},
 		{
-			"name": "JAZ Testnet",
+			"name": "BNB Testnet",
 			"type": "ethereum",
 			"id": "0",
-			"endpoint": "https://rpc1.jaz.network/",
+			"endpoint": "https://restless-serene-meme.bsc-testnet.discover.quiknode.pro/cf291d33c518e9d10239620138cbc3a974712449/",
 			"from": "0x994354275A3512fc3C54543E1b400ea9dA1d3A0f",
 			"opts": {
 				"bridge": "0xe3A355B3cA6E3dA182b78E5989c0AFC9B5a71184",
@@ -30,7 +30,7 @@
 				"gasLimit": "1000000",
 				"maxGasPrice": "10000000000",
 				"gasMultiplier": "0",
-				"startBlock": "31666",
+				"startBlock": "0",
 				"http": "true"
 			}
 		}
