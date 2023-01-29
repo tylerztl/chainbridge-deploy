@@ -21,7 +21,7 @@
 			"name": "BNB Testnet",
 			"type": "ethereum",
 			"id": "0",
-			"endpoint": "https://restless-serene-meme.bsc-testnet.discover.quiknode.pro/cf291d33c518e9d10239620138cbc3a974712449/",
+			"endpoint": "https://bsc.getblock.io/fb412582-863b-4fe5-bf7a-33b6299cadd4/testnet/",
 			"from": "0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f",
 			"opts": {
 				"bridge": "0xe3A355B3cA6E3dA182b78E5989c0AFC9B5a71184",
