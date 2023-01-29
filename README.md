@@ -1,4 +1,4 @@
-# Findora <=> BSC ChainBridge Deploy
+# JAZ <=> BNB ChainBridge Deploy
 
 ## Prerequisites
 - Go 1.15+ installation or later
@@ -47,10 +47,10 @@ You could also write the above to a file (e.g. `chainbridge-vars`) and load it i
 Please follow the guide: [Deploying a Live EVM->EVM Token Bridge](https://chainbridge.chainsafe.io/live-evm-bridge/).
 
 #### Steps
-1. Deploy contracts on Source (Findora)
+1. Deploy contracts on Source (JAZ)
 The following command will deploy the bridge contract and ERC20 handler contract on the source.
 
-*Note: Findora network min gas price is 100 Gwei*
+*Note: JAZ network min gas price is 1 Gwei*
 ```
 cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 10000000000 deploy \
     --bridge --erc20Handler \
@@ -65,11 +65,11 @@ Deploying contracts...
 ✓ ERC20Handler contract deployed
 
 ================================================================
-Url:        https://prod-forge.prod.findora.org:8545/
+Url:        https://rpc1.jaz.network/
 Deployer:   0x91388a75f30065f6F1D679541C6aDc2c3ade08A8
 Gas Limit:   8000000
-Gas Price:   10000000000
-Deploy Cost: 0.0593005
+Gas Price:   1000000000
+Deploy Cost: 0.005944438
 
 Options
 =======
@@ -94,8 +94,6 @@ Erc20:              Not Deployed
 Erc721:             Not Deployed
 ----------------------------------------------------------------
 Centrifuge Asset:   Not Deployed
-----------------------------------------------------------------
-WETC:               Not Deployed
 ================================================================
 ```
 Take note of the output of the above command and assign the following variables to `chainbridge-vars`.
@@ -104,8 +102,8 @@ SRC_BRIDGE="<resulting bridge contract address>"
 SRC_HANDLER="<resulting erc20 handler contract address>"
 ```
 
-2. Configure contracts on Source (Findora)
-The following registers the FRA token as a resource with a bridge contract and configures which handler to use.
+2. Configure contracts on Source (JAZ)
+The following registers the BNB token as a resource with a bridge contract and configures which handler to use.
 ```
 cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 10000000000 bridge register-resource \
     --bridge $SRC_BRIDGE \
@@ -115,17 +113,15 @@ cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 10000000000 bridge
 ```
 output:
 ```
-[bridge/register-resource] Registering contract 0x0000000000000000000000000000000000001000 with resource ID 0x000000000000000000000000000000c76ebe4a02bbc34786d860b355f5a5ce00 on handler 0xE75Fb7714B5098E20A2D224693A1c210ad0c1A42
-Waiting for tx: 0xf60d2f0ceab57f6740e4568ba20ab95e492d65c7522eca0d360b616e1662b380...
+[bridge/register-resource] Registering contract 0x0000000000000000000000000000000000000804 with resource ID 0x000000000000000000000000000000c76ebe4a02bbc34786d860b355f5a5ce00 on handler 0xE75Fb7714B5098E20A2D224693A1c210ad0c1A42
+Waiting for tx: 0x8062c60f0989dd6d818e687e48b87d709231f1bb032f1f68364e51e66c108db6...
 ```
 
-3. Deploy contracts on Destination (BSC)
+3. Deploy contracts on Destination (BNB)
 
-The following command deploys the bridge contract, handler and a new BEP-20 contract (FRA) on the destination chain.
+The following command deploys the bridge contract, handler and a new BEP-20 contract (BNB) on the destination chain.
 ```
-cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 deploy\
-    --erc20Name Findora \
-    --erc20Symbol FRA \
+cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 deploy \
     --bridge --erc20 --erc20Handler \
     --relayers $DST_ADDR \
     --relayerThreshold 3 \
@@ -139,11 +135,11 @@ Deploying contracts...
 ✓ ERC20 contract deployed
 
 ================================================================
-Url:        https://data-seed-prebsc-1-s1.binance.org:8545/
+Url:        https://restless-serene-meme.bsc-testnet.discover.quiknode.pro/cf291d33c518e9d10239620138cbc3a974712449/
 Deployer:   0x5849771139978fe0B3D52303d71D222a347e7CaB
 Gas Limit:   8000000
 Gas Price:   10000000000
-Deploy Cost: 0.0764572
+Deploy Cost: 0.08403418
 
 Options
 =======
@@ -155,21 +151,19 @@ Expiry:      100
 
 Contract Addresses
 ================================================================
-Bridge:             0xacB8C5D7be5B23644eCe55789Eb6aA6bd6C31e64
+Bridge:             0x3ab80A5896554B08aA75Ee89cff53ae348DF041d
 ----------------------------------------------------------------
-Erc20 Handler:      0x3e1066Ea99f2934e728D85b03BD72d1BbD61D2D4
+Erc20 Handler:      0x9A2B7aF4a1016378a3A1766B442883EF582cfc6A
 ----------------------------------------------------------------
 Erc721 Handler:     Not Deployed
 ----------------------------------------------------------------
 Generic Handler:    Not Deployed
 ----------------------------------------------------------------
-Erc20:              0xa1238f3dE0A159Cd79d4f3Da4bA3a9627E48112e
+Erc20:              0xDDdC03B47c198c7b24BFF83F7cA13F14628Ab110
 ----------------------------------------------------------------
 Erc721:             Not Deployed
 ----------------------------------------------------------------
 Centrifuge Asset:   Not Deployed
-----------------------------------------------------------------
-WETC:               Not Deployed
 ================================================================
 ```
 Again, assign the following env variables to `chainbridge-vars`.
@@ -181,27 +175,27 @@ DST_TOKEN="<resulting erc20 token address>"
 
 Final chainbridge-vars
 ```
-SRC_GATEWAY=https://prod-forge.prod.findora.org:8545/
-DST_GATEWAY=https://data-seed-prebsc-1-s1.binance.org:8545/
+SRC_GATEWAY=https://rpc1.jaz.network/
+DST_GATEWAY=https://restless-serene-meme.bsc-testnet.discover.quiknode.pro/cf291d33c518e9d10239620138cbc3a974712449/
 
 SRC_ADDR="0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549","0x994354275A3512fc3C54543E1b400ea9dA1d3A0f","0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f"
 SRC_PK="59a6e32ed4240917b1ebe7de6fd5c3b672376badca34828b642837e9395980e1"
 DST_ADDR="0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549","0x994354275A3512fc3C54543E1b400ea9dA1d3A0f","0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f"
 DST_PK="1d3cb5dada1ea8d4453e9e10749a6a608ee0d89a4ad9f9e0241f40346e0f0957"
 
-SRC_TOKEN="0x0000000000000000000000000000000000001000"
+SRC_TOKEN="0x0000000000000000000000000000000000000804"
 RESOURCE_ID="0x000000000000000000000000000000c76ebe4a02bbc34786d860b355f5a5ce00"
 
 SRC_BRIDGE="0x26925046a09d9AEfe6903eae0aD090be06186Bd9"
 SRC_HANDLER="0xE75Fb7714B5098E20A2D224693A1c210ad0c1A42"
 
-DST_BRIDGE="0xacB8C5D7be5B23644eCe55789Eb6aA6bd6C31e64"
-DST_HANDLER="0x3e1066Ea99f2934e728D85b03BD72d1BbD61D2D4"
-DST_TOKEN="0xa1238f3dE0A159Cd79d4f3Da4bA3a9627E48112e"
+DST_BRIDGE="0x3ab80A5896554B08aA75Ee89cff53ae348DF041d"
+DST_HANDLER="0x9A2B7aF4a1016378a3A1766B442883EF582cfc6A"
+DST_TOKEN="0xDDdC03B47c198c7b24BFF83F7cA13F14628Ab110"
 ```
 
-4. Configure contracts on Destination (BSC)
-The following registers the new token (FRA) as a resource on the bridge similar to the above.
+4. Configure contracts on Destination (BNB)
+The following registers the new token (JAZ) as a resource on the bridge similar to the above.
 ```
 cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 bridge register-resource \
     --bridge $DST_BRIDGE \

@@ -1,10 +1,10 @@
 version: '3'
 
 networks:
-  findora-bridge:
+  jaz-bridge:
 
 services:
-  findora-bridge-relayer0:
+  jaz-bridge-relayer0:
     image: chainsafe/chainbridge:v1.1.5
     container_name: relayer0
     restart: always
@@ -15,8 +15,8 @@ services:
       - ./config/config0.json:/config/config.json
       - ./keys/0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549.key:/keys/0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549.key
     networks:
-      - findora-bridge
-  findora-bridge-relayer1:
+      - jaz-bridge
+  jaz-bridge-relayer1:
     image: chainsafe/chainbridge:v1.1.5
     container_name: relayer1
     restart: always
@@ -27,8 +27,8 @@ services:
       - ./config/config1.json:/config/config.json
       - ./keys/0x994354275A3512fc3C54543E1b400ea9dA1d3A0f.key:/keys/0x994354275A3512fc3C54543E1b400ea9dA1d3A0f.key
     networks:
-      - findora-bridge
-  findora-bridge-relayer2:
+      - jaz-bridge
+  jaz-bridge-relayer2:
     image: chainsafe/chainbridge:v1.1.5
     container_name: relayer2
     restart: always
@@ -39,4 +39,4 @@ services:
       - ./config/config2.json:/config/config.json
       - ./keys/0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f.key:/keys/0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f.key
     networks:
-      - findora-bridge
+      - jaz-bridge
