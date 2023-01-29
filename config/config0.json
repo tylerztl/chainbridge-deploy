@@ -4,7 +4,7 @@
 			"name": "BNB Testnet",
 			"type": "ethereum",
 			"id": "1",
-			"endpoint": "https://restless-serene-meme.bsc-testnet.discover.quiknode.pro/cf291d33c518e9d10239620138cbc3a974712449/",
+			"endpoint": "https://data-seed-prebsc-1-s1.binance.org:8545",
 			"from": "0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549",
 			"opts": {
 				"bridge": "0x55076D7b0977b4623F81d0f97940797424cA83FA",
