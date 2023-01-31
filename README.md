@@ -7,6 +7,14 @@
 - Docker
 - docker-compose
 
+## ResourceID
+```
+// utf-8 encoding of "bnb.jaz.raca"
+0x00000000000000000000000000000000000000626e622e6a617a2e7261636100
+// utf-8 encoding of "bnb.jaz.bnb"
+0x0000000000000000000000000000000000000000626e622e6a617a2e626e6200
+```
+
 ## Tooling
 ### cb-sol-cli
 We will be using the ChainBridge contract CLI to deploy and interact with the contracts. Grab and install the CLI by running:
