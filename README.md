@@ -30,15 +30,15 @@ The tools provided by ChainBridge are an alternative, see the [keystore](https:/
 ### Set chainbridge vars
 To avoid duplication in the subsequent commands set the following env vars in your shell:
 ```
-SRC_GATEWAY=https://prod-forge.prod.findora.org:8545/
-DST_GATEWAY=https://data-seed-prebsc-1-s1.binance.org:8545/
+SRC_GATEWAY=https://bsc-testnet.public.blastapi.io/
+DST_GATEWAY=https://rpc1.jaz.network/
 
-SRC_ADDR="<relayers public key on Findora>"
-SRC_PK="<deployer private key on Findora>"
-DST_ADDR="<relayers public key on BSC>"
-DST_PK="<deployer private key on BSC>"
+SRC_ADDR="<relayers public key on BNB Chain>"
+SRC_PK="<deployer private key on BNB Chain>"
+DST_ADDR="<relayers public key on JAZ Chain>"
+DST_PK="<deployer private key on JAZ Chain>"
 
-SRC_TOKEN="0x0000000000000000000000000000000000001000"
+SRC_TOKEN="0x0000000000000000000000000000000000000804"
 RESOURCE_ID="0x000000000000000000000000000000c76ebe4a02bbc34786d860b355f5a5ce00"
 ```
 You could also write the above to a file (e.g. `chainbridge-vars`) and load it into your shell by running `set -a; source ./chainbridge-vars; set +a`.
@@ -47,15 +47,23 @@ You could also write the above to a file (e.g. `chainbridge-vars`) and load it i
 Please follow the guide: [Deploying a Live EVM->EVM Token Bridge](https://chainbridge.chainsafe.io/live-evm-bridge/).
 
 #### Steps
-1. Deploy contracts on Source (JAZ)
+1. Deploy contracts on Source
 The following command will deploy the bridge contract and ERC20 handler contract on the source.
 
-*Note: JAZ network min gas price is 1 Gwei*
+> Note:
+> 
+> BNB mainnet min gasPrice is 1 Gwei
+> 
+> BNB testnet min gasPrice is 10 Gwei
+>
+> JAZ network min gasPrice is 0.1 Gwei
+
 ```
 cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 10000000000 deploy \
     --bridge --erc20Handler \
     --relayers $SRC_ADDR \
-    --relayerThreshold 3\
+    --relayerThreshold 2\
+    --expiry 500 \
     --chainId 0
 ```
 output:
@@ -102,8 +110,8 @@ SRC_BRIDGE="<resulting bridge contract address>"
 SRC_HANDLER="<resulting erc20 handler contract address>"
 ```
 
-2. Configure contracts on Source (JAZ)
-The following registers the BNB token as a resource with a bridge contract and configures which handler to use.
+2. Configure contracts on Source
+The following registers the ERC20 token as a resource with a bridge contract and configures which handler to use.
 ```
 cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 10000000000 bridge register-resource \
     --bridge $SRC_BRIDGE \
@@ -117,14 +125,14 @@ output:
 Waiting for tx: 0x8062c60f0989dd6d818e687e48b87d709231f1bb032f1f68364e51e66c108db6...
 ```
 
-3. Deploy contracts on Destination (BNB)
+3. Deploy contracts on Destination
 
-The following command deploys the bridge contract, handler and a new BEP-20 contract (BNB) on the destination chain.
+The following command deploys the bridge contract, handler and a new ERC20 contract on the destination chain.
 ```
 cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 deploy \
     --bridge --erc20 --erc20Handler \
     --relayers $DST_ADDR \
-    --relayerThreshold 3 \
+    --relayerThreshold 2 \
     --chainId 1
 ```
 output:
@@ -194,8 +202,8 @@ DST_HANDLER="0x9A2B7aF4a1016378a3A1766B442883EF582cfc6A"
 DST_TOKEN="0xDDdC03B47c198c7b24BFF83F7cA13F14628Ab110"
 ```
 
-4. Configure contracts on Destination (BNB)
-The following registers the new token (JAZ) as a resource on the bridge similar to the above.
+4. Configure contracts on Destination
+The following registers the new ERC20 token as a resource on the bridge similar to the above.
 ```
 cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 bridge register-resource \
     --bridge $DST_BRIDGE \
@@ -210,7 +218,7 @@ cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 bridge
     --handler $DST_HANDLER \
     --tokenContract $DST_TOKEN
 ```
-The following gives permission for the handler to mint new FRA (BEP-20) tokens.
+The following gives permission for the handler to mint new ERC20 tokens.
 ```
 cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 erc20 add-minter \
     --minter $DST_HANDLER \
@@ -240,7 +248,7 @@ docker-compose up -d
 ```
 
 ### Deposit token
-#### Findora => BSC
+#### BNB => JAZ
 Approve the handler to spend tokens on our behalf (to transfer them to the token safe).
 
 ```
@@ -263,7 +271,7 @@ cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 10000000000 erc20 
 The relayer will wait 3 block confirmations before submitting a request which may take a few minutes on the test network. Keep an eye on the target=XXXX output in the chainbridge relayer window. 
 The transfer will occur when this reaches the block height of the deposit transaction.
 
-#### BSC => Findora
+#### JAZ => BNB
 
 Approve the handler on the destination chain to move tokens on our behalf (to burn them).
 ```
