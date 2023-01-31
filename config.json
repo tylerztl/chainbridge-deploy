@@ -4,7 +4,7 @@
     {
       "name": "BNB Testnet",
       "chainId": "0",
-      "endpoint": "https://bsc.getblock.io/fb412582-863b-4fe5-bf7a-33b6299cadd4/testnet/",
+      "endpoint": "https://restless-serene-meme.bsc-testnet.discover.quiknode.pro/cf291d33c518e9d10239620138cbc3a974712449/",
       "bridge": "0xe3A355B3cA6E3dA182b78E5989c0AFC9B5a71184",
       "erc20Handler": "0x49311f0355e83213553fe21eC6592B2CdA874857",
       "genericHandler": "0x49311f0355e83213553fe21eC6592B2CdA874857",
