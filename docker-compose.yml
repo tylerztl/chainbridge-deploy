@@ -4,39 +4,42 @@ networks:
   jaz-bridge:
 
 services:
-  jaz-bridge-relayer0:
-    image: chainsafe/chainbridge:v1.1.5
-    container_name: relayer0
-    restart: always
-    environment:
-      - KEYSTORE_PASSWORD=passw0rd
-    command: --config /config/config.json --verbosity trace --latest
-    volumes:
-      - ./config/config0.json:/config/config.json
-      - ./keys/0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549.key:/keys/0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549.key
-    networks:
-      - jaz-bridge
   jaz-bridge-relayer1:
-    image: chainsafe/chainbridge:v1.1.5
+    image: jaznetwork/chainbridge-core:v1.0.0
     container_name: relayer1
     restart: always
     environment:
       - KEYSTORE_PASSWORD=passw0rd
-    command: --config /config/config.json --verbosity trace --latest
+    command: run --config /cfg/config.json --blockstore blockstore --latest
     volumes:
       - ./config/config1.json:/config/config.json
-      - ./keys/0x994354275A3512fc3C54543E1b400ea9dA1d3A0f.key:/keys/0x994354275A3512fc3C54543E1b400ea9dA1d3A0f.key
+      - ./keys/0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549.key:/keys/0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549.key
+      - ./jaz-bridge/blockstore:/blockstore
     networks:
       - jaz-bridge
   jaz-bridge-relayer2:
-    image: chainsafe/chainbridge:v1.1.5
+    image: jaznetwork/chainbridge-core:v1.0.0
     container_name: relayer2
     restart: always
     environment:
       - KEYSTORE_PASSWORD=passw0rd
-    command: --config /config/config.json --verbosity trace --latest
+    command: run --config /cfg/config.json --blockstore blockstore --latest
     volumes:
       - ./config/config2.json:/config/config.json
+      - ./keys/0x994354275A3512fc3C54543E1b400ea9dA1d3A0f.key:/keys/0x994354275A3512fc3C54543E1b400ea9dA1d3A0f.key
+      - ./jaz-bridge/blockstore:/blockstore
+    networks:
+      - jaz-bridge
+  jaz-bridge-relayer3:
+    image: jaznetwork/chainbridge-core:v1.0.0
+    container_name: relayer3
+    restart: always
+    environment:
+      - KEYSTORE_PASSWORD=passw0rd
+    command: run --config /cfg/config.json --blockstore blockstore --latest
+    volumes:
+      - ./config/config3.json:/config/config.json
       - ./keys/0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f.key:/keys/0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f.key
+      - ./jaz-bridge/blockstore:/blockstore
     networks:
       - jaz-bridge

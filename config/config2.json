@@ -1,38 +1,31 @@
 {
-	"Chains": [
-		{
-			"name": "JAZ Testnet",
-			"type": "ethereum",
-			"id": "1",
-			"endpoint": "https://rpc1.jaz.network/",
-			"from": "0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f",
-			"opts": {
-				"bridge": "0x55076D7b0977b4623F81d0f97940797424cA83FA",
-				"erc20Handler": "0xe3A355B3cA6E3dA182b78E5989c0AFC9B5a71184",
-				"genericHandler": "0xe3A355B3cA6E3dA182b78E5989c0AFC9B5a71184",
-				"gasLimit": "1000000",
-				"maxGasPrice": "10000000000",
-				"gasMultiplier": "1",
-				"startBlock": "0",
-				"http": "true"
-			}
-		},
-		{
-			"name": "BNB Testnet",
-			"type": "ethereum",
-			"id": "0",
-			"endpoint": "https://bsc.getblock.io/fb412582-863b-4fe5-bf7a-33b6299cadd4/testnet/",
-			"from": "0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f",
-			"opts": {
-				"bridge": "0xe3A355B3cA6E3dA182b78E5989c0AFC9B5a71184",
-				"erc20Handler": "0x49311f0355e83213553fe21eC6592B2CdA874857",
-				"genericHandler": "0x49311f0355e83213553fe21eC6592B2CdA874857",
-				"gasLimit": "1000000",
-				"maxGasPrice": "10000000000",
-				"gasMultiplier": "0",
-				"startBlock": "0",
-				"http": "true"
-			}
-		}
-	]
+  "relayer": {},
+  "chains": [
+    {
+      "name": "BNB Testnet",
+      "type": "evm",
+      "id": "0",
+      "endpoint": "https://restless-serene-meme.bsc-testnet.discover.quiknode.pro/cf291d33c518e9d10239620138cbc3a974712449/",
+      "from": "0x994354275A3512fc3C54543E1b400ea9dA1d3A0f",
+      "bridge": "0x7f6e4C4D597335C3D2f1f8fBbc75a189A875c5F5",
+      "erc20Handler": "0xE1A79007D9875b63b326b7f4af080973268C5Adf",
+      "maxGasPrice": "10000000000",
+      "blockConfirmations": 10,
+      "blockInterval": 3,
+      "blockRetryInterval": 3
+    },
+    {
+      "name": "JAZ Testnet",
+      "type": "evm",
+      "id": "1",
+      "endpoint": "https://rpc1.jaz.network/",
+      "from": "0x994354275A3512fc3C54543E1b400ea9dA1d3A0f",
+      "bridge": "0x7f6e4C4D597335C3D2f1f8fBbc75a189A875c5F5",
+      "erc20Handler": "0xE1A79007D9875b63b326b7f4af080973268C5Adf",
+      "maxGasPrice": "10000000000",
+      "blockConfirmations": 10,
+      "blockInterval": 2,
+      "blockRetryInterval": 2
+    }
+  ]
 }

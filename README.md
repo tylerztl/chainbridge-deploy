@@ -1,4 +1,4 @@
-# JAZ <=> BNB ChainBridge Deploy
+# BNB <=> JAZ ChainBridge Deploy
 
 ## Prerequisites
 - Go 1.15+ installation or later
@@ -7,12 +7,34 @@
 - Docker
 - docker-compose
 
-## ResourceID
+## Token list
+### RACA
+#### ResourceID
 ```
 // utf-8 encoding of "bnb.jaz.raca"
 0x00000000000000000000000000000000000000626e622e6a617a2e7261636100
-// utf-8 encoding of "bnb.jaz.bnb"
-0x0000000000000000000000000000000000000000626e622e6a617a2e626e6200
+```
+#### SRC_TOKEN
+```
+0x55076D7b0977b4623F81d0f97940797424cA83FA
+```
+#### DST_TOKEN
+```
+0x49311f0355e83213553fe21eC6592B2CdA874857
+```
+### WBNB
+#### ResourceID
+```
+// utf-8 encoding of "bnb.jaz.wbnb"
+0x00000000000000000000000000000000000000626e622e6a617a2e77626e6200
+```
+#### SRC_TOKEN
+```
+0x55076D7b0977b4623F81d0f97940797424cA83FA
+```
+#### DST_TOKEN
+```
+0x0000000000000000000000000000000000000804
 ```
 
 ## Tooling
@@ -81,25 +103,25 @@ Deploying contracts...
 ✓ ERC20Handler contract deployed
 
 ================================================================
-Url:        https://rpc1.jaz.network/
-Deployer:   0x91388a75f30065f6F1D679541C6aDc2c3ade08A8
+Url:        https://bsc-testnet.public.blastapi.io/
+Deployer:   0x758a5D7F2934Ce3136dF30C1180B446Aa5506bEE
 Gas Limit:   8000000
-Gas Price:   1000000000
-Deploy Cost: 0.005944438
+Gas Price:   10000000000
+Deploy Cost: 0.03710507
 
 Options
 =======
 Chain Id:    0
-Threshold:   3
+Threshold:   2
 Relayers:    0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549,0x994354275A3512fc3C54543E1b400ea9dA1d3A0f,0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f
 Bridge Fee:  0
-Expiry:      100
+Expiry:      500
 
 Contract Addresses
 ================================================================
-Bridge:             0x26925046a09d9AEfe6903eae0aD090be06186Bd9
+Bridge:             0x90636562b1f8CF3Fc7bE309742CD6AB0D4d5d417
 ----------------------------------------------------------------
-Erc20 Handler:      0xE75Fb7714B5098E20A2D224693A1c210ad0c1A42
+Erc20 Handler:      0x1aa360D6e6Ba0320C767B361438FD81E92060480
 ----------------------------------------------------------------
 Erc721 Handler:     Not Deployed
 ----------------------------------------------------------------
@@ -129,16 +151,16 @@ cb-sol-cli --url $SRC_GATEWAY --privateKey $SRC_PK --gasPrice 10000000000 bridge
 ```
 output:
 ```
-[bridge/register-resource] Registering contract 0x0000000000000000000000000000000000000804 with resource ID 0x000000000000000000000000000000c76ebe4a02bbc34786d860b355f5a5ce00 on handler 0xE75Fb7714B5098E20A2D224693A1c210ad0c1A42
-Waiting for tx: 0x8062c60f0989dd6d818e687e48b87d709231f1bb032f1f68364e51e66c108db6...
+[bridge/register-resource] Registering contract 0x55076D7b0977b4623F81d0f97940797424cA83FA with resource ID 0x00000000000000000000000000000000000000626e622e6a617a2e7261636100 on handler 0x1aa360D6e6Ba0320C767B361438FD81E92060480
+Waiting for tx: 0x6e38393979f77f3b348e7f0172f269a5807a8fe7f75469a15ef31b202eea2bf7...
 ```
 
 3. Deploy contracts on Destination
 
 The following command deploys the bridge contract, handler and a new ERC20 contract on the destination chain.
 ```
-cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 deploy \
-    --bridge --erc20 --erc20Handler \
+cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 100000000 deploy \
+    --bridge --erc20Handler \
     --relayers $DST_ADDR \
     --relayerThreshold 2 \
     --chainId 1
@@ -148,34 +170,33 @@ output:
 Deploying contracts...
 ✓ Bridge contract deployed
 ✓ ERC20Handler contract deployed
-✓ ERC20 contract deployed
 
 ================================================================
-Url:        https://restless-serene-meme.bsc-testnet.discover.quiknode.pro/cf291d33c518e9d10239620138cbc3a974712449/
-Deployer:   0x5849771139978fe0B3D52303d71D222a347e7CaB
+Url:        https://rpc1.jaz.network/
+Deployer:   0x758a5D7F2934Ce3136dF30C1180B446Aa5506bEE
 Gas Limit:   8000000
-Gas Price:   10000000000
-Deploy Cost: 0.08403418
+Gas Price:   100000000
+Deploy Cost: 0.0003716607
 
 Options
 =======
 Chain Id:    1
-Threshold:   3
+Threshold:   2
 Relayers:    0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549,0x994354275A3512fc3C54543E1b400ea9dA1d3A0f,0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f
 Bridge Fee:  0
 Expiry:      100
 
 Contract Addresses
 ================================================================
-Bridge:             0x3ab80A5896554B08aA75Ee89cff53ae348DF041d
+Bridge:             0x37Df589AC6Ccc6DbD367153DbfC6803008eD5773
 ----------------------------------------------------------------
-Erc20 Handler:      0x9A2B7aF4a1016378a3A1766B442883EF582cfc6A
+Erc20 Handler:      0x6999b59C240068CaEFA25597c7cF174500025669
 ----------------------------------------------------------------
 Erc721 Handler:     Not Deployed
 ----------------------------------------------------------------
 Generic Handler:    Not Deployed
 ----------------------------------------------------------------
-Erc20:              0xDDdC03B47c198c7b24BFF83F7cA13F14628Ab110
+Erc20:              Not Deployed
 ----------------------------------------------------------------
 Erc721:             Not Deployed
 ----------------------------------------------------------------
@@ -189,31 +210,10 @@ DST_HANDLER="<resulting erc20 handler contract address>"
 DST_TOKEN="<resulting erc20 token address>"
 ```
 
-Final chainbridge-vars
-```
-SRC_GATEWAY=https://rpc1.jaz.network/
-DST_GATEWAY=https://restless-serene-meme.bsc-testnet.discover.quiknode.pro/cf291d33c518e9d10239620138cbc3a974712449/
-
-SRC_ADDR="0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549","0x994354275A3512fc3C54543E1b400ea9dA1d3A0f","0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f"
-SRC_PK="59a6e32ed4240917b1ebe7de6fd5c3b672376badca34828b642837e9395980e1"
-DST_ADDR="0x2bAe5160A67FFE0d2dD9114c521dd51689FDB549","0x994354275A3512fc3C54543E1b400ea9dA1d3A0f","0xdfAE3230656b0AfBBdc5f4F16F49eEF9398fB51f"
-DST_PK="1d3cb5dada1ea8d4453e9e10749a6a608ee0d89a4ad9f9e0241f40346e0f0957"
-
-SRC_TOKEN="0x0000000000000000000000000000000000000804"
-RESOURCE_ID="0x000000000000000000000000000000c76ebe4a02bbc34786d860b355f5a5ce00"
-
-SRC_BRIDGE="0x26925046a09d9AEfe6903eae0aD090be06186Bd9"
-SRC_HANDLER="0xE75Fb7714B5098E20A2D224693A1c210ad0c1A42"
-
-DST_BRIDGE="0x3ab80A5896554B08aA75Ee89cff53ae348DF041d"
-DST_HANDLER="0x9A2B7aF4a1016378a3A1766B442883EF582cfc6A"
-DST_TOKEN="0xDDdC03B47c198c7b24BFF83F7cA13F14628Ab110"
-```
-
 4. Configure contracts on Destination
 The following registers the new ERC20 token as a resource on the bridge similar to the above.
 ```
-cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 bridge register-resource \
+cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 100000000 bridge register-resource \
     --bridge $DST_BRIDGE \
     --handler $DST_HANDLER \
     --resourceId $RESOURCE_ID \
@@ -221,14 +221,14 @@ cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 bridge
 ```
 The following registers the token as mintable/burnable on the bridge.
 ```
-cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 bridge set-burn \
+cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 100000000 bridge set-burn \
     --bridge $DST_BRIDGE \
     --handler $DST_HANDLER \
     --tokenContract $DST_TOKEN
 ```
 The following gives permission for the handler to mint new ERC20 tokens.
 ```
-cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 10000000000 erc20 add-minter \
+cb-sol-cli --url $DST_GATEWAY --privateKey $DST_PK --gasPrice 100000000 erc20 add-minter \
     --minter $DST_HANDLER \
     --erc20Address $DST_TOKEN
 ```
